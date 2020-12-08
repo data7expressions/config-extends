@@ -1,11 +1,16 @@
 const path = require('path');
-const ConfigExtended = require('../lib/config-extended');
+const configExtended = require('../lib/config-extended');
 
 (async () => { 
     try {        
-        let configExtended = new ConfigExtended();
-        await configExtended.loadPath(path.join(__dirname,'config'));
-        console.log(JSON.stringify(configExtended.config));
+        
+        let config = await configExtended.loadPath(path.join(__dirname,'config'));
+
+        let list = []
+        for(let k in config.game){
+            list.push(config.game[k]);
+        }
+        console.log(JSON.stringify(list));
     }
     catch (error) {     
         console.error(error);  
