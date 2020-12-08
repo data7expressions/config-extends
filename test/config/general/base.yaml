@@ -1,0 +1,10 @@
+_name: base
+sequence:
+  _extend : sequence.random.all
+screen:
+  pixelSize: 32
+  cols: 10
+  rows: 20 
+shapes:
+  _extend: shapes.all.shapes
+   

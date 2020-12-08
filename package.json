@@ -1,0 +1,30 @@
+{
+  "name": "config-extended",
+  "version": "0.0.1",
+  "description": "Allow to extend yaml or json files configuration",
+  "main": "./lib/config-extended",
+  "scripts": {
+    "test": "node test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FlavioLionelRita/config-extended.git"
+  },
+  "keywords": [
+    "json",
+    "yaml",
+    "extentd",
+    "config",
+    "configuration"
+  ],
+  "author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FlavioLionelRita/config-extended/issues"
+  },
+  "homepage": "https://github.com/FlavioLionelRita/config-extended#readme",
+  "dependencies": {
+    "glob": "^7.1.6",
+    "js-yaml": "^3.14.1"
+  }
+}

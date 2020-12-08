@@ -1,0 +1,15 @@
+_name: sequence.fixed.simple
+type : fixed
+sequence: 
+  - L1
+  - T2
+  - S1
+  - Z3
+  - J1
+  - O3
+  - I1
+  - Z3
+  - J1
+  - O3
+  - I2
+  - I1

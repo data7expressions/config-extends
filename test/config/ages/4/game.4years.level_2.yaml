@@ -1,0 +1,8 @@
+_extend: years.4
+_name: game.4years.level_2
+level: 2
+sequence:
+  type : "random"
+  shapes: LTOI
+  speedMin: 1
+  speedMax: 5
