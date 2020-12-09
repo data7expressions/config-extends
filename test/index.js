@@ -5,8 +5,8 @@ const configExtends = require('../lib/config-extends');
     try {      
 
 
-        // let config = await configExtended.load(path.join(__dirname,'raspberry.yaml'));
-        // console.log(JSON.stringify(config.version));
+        let config = await configExtends.load(path.join(__dirname,'raspberry.yaml'));
+        console.log(JSON.stringify(config.version));
         
         // console.log(path.join(path.parse('a/b/c.yaml').dir,path.parse('a/b/c.yaml').name));
         // console.log(path.join(path.parse('c.yaml').dir,path.parse('c.yaml').name));
@@ -15,8 +15,8 @@ const configExtends = require('../lib/config-extends');
         // path.parse('a/b/c.yaml').name;
         // path.parse('a/b/c.yaml').dir;
         
-        let config = await configExtends.load(path.join(__dirname,'tetris'));
-        console.log(JSON.stringify(config));
+        // let config = await configExtends.load(path.join(__dirname,'tetris'));
+        // console.log(JSON.stringify(config));
         // let list = []
         // for(let k in config.version){
         //     list.push(config.version[k]);
