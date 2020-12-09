@@ -1,4 +1,3 @@
-_name: sequence.fixed.simple
 type : fixed
 sequence: 
   - L1

@@ -1,0 +1,6 @@
+_extends: base
+age:
+  from : 4
+  To : 4
+sequence:
+  _extends: sequence.random.all

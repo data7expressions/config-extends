@@ -1,5 +1,4 @@
-_name: shapes.all
-shapes:
+list:
   - name: I
     color: cyan 
     shape: |

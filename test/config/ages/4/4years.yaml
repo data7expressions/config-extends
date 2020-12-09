@@ -1,7 +1,0 @@
-_extend: base
-_name: 4years 
-age:
-  from : 4
-  To : 4
-sequence:
-  _extend: sequence.random.all

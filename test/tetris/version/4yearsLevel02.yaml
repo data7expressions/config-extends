@@ -1,5 +1,4 @@
-_extend: 4years
-_name: game.4years_level02
+_extends: category.4years
 level: 2
 sequence:
   type : "random"

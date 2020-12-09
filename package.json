@@ -24,7 +24,10 @@
   },
   "homepage": "https://github.com/FlavioLionelRita/config-extended#readme",
   "dependencies": {
-    "glob": "^7.1.6",
     "js-yaml": "^3.14.1"
+  },
+  "devDependencies": {
+    "mocha": "^8.2.1",
+    "chai": "^4.2.0"
   }
 }

@@ -1,0 +1,63 @@
+version:
+  PiA:
+    _extends: [family.Pi, model.A]
+  PiB:
+    _extends: [family.Pi, model.B]
+  PiA+:
+    _extends: [family.Pi, model.A]
+    measure: 
+      _extends: measure.compact
+  PiB+:
+    _extends: [family.Pi, model.B]
+  Pi2B:
+    measure: 
+      _extends: measure.standard
+  Pi3A:
+    _extends: [family.Pi3, model.A]
+  Pi3A+:
+    _extends: [family.Pi3, model.A]
+  Pi3B+:
+    _extends: [family.Pi3, model.B]
+  Pi4B1G:
+    _extends: family.Pi4
+    memory: 1G
+  Pi4B2G:
+    _extends: family.Pi4
+    memory: 2G
+  Pi4B4G:
+    _extends: family.Pi4
+    memory: 4G
+  Pi4B8G:
+    _extends: family.Pi4
+    memory: 8G
+family:
+  Pi:
+    wireless: false
+    measure: 
+      _extends: measure.standard
+  Pi3:
+    wireless: true
+    measure: 
+      _extends: measure.standard    
+  Pi4:
+    _extends: [model.B]
+    wireless: true
+    measure: 
+      _extends: measure.standard
+model:
+  A:
+    ethernet: false
+  B:
+    ethernet: true    
+measure:
+  standard:
+    high: 85.6
+    long: 56.5
+  compact:
+    high: 65
+    long: 56.5  
+
+
+
+
+

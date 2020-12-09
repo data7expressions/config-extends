@@ -1,4 +1,3 @@
-_name: sequence.random.all
 type : random
 shapes: LTSZJOI
 speedMin: 1
