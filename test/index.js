@@ -1,5 +1,5 @@
 const path = require('path');
-const configExtended = require('../lib/config-extended');
+const configExtends = require('../lib/config-extends');
 
 (async () => { 
     try {      
@@ -15,7 +15,7 @@ const configExtended = require('../lib/config-extended');
         // path.parse('a/b/c.yaml').name;
         // path.parse('a/b/c.yaml').dir;
         
-        let config = await configExtended.load(path.join(__dirname,'tetris'));
+        let config = await configExtends.load(path.join(__dirname,'tetris'));
         console.log(JSON.stringify(config));
         // let list = []
         // for(let k in config.version){

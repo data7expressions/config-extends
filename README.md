@@ -6,15 +6,14 @@ Allow to extend yaml or json files configuration
 Install with npm
 
 ```
-npm i config-extended
+npm i config-extends
 ```
 
 ```javascript
-const ConfigExtended = require("config-extended")
+const ConfigExtends = require("config-extends")
 
 ...
 
-let configExtended = new ConfigExtended();
-await configExtended.loadPath(path.join(__dirname,'config'));
-console.log(JSON.stringify(configExtended.config));
+let config = await configExtends.load(path.join(__dirname,'tetris'));
+console.log(JSON.stringify(config));
 ```
