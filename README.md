@@ -27,7 +27,7 @@ Note: Only node.js
 npm i config-extends
 ```
 
-## Bundled YAML library for node.js
+### Bundled YAML library for node.js
 ```
 const ConfigExtends = require("config-extends")
 
@@ -39,7 +39,7 @@ let config = ConfigExtends.extends(source);
 console.log(JSON.stringify(config,null,2));
 ```
 
-## Bundled library for browsers
+### Bundled library for browsers
 ```
 <script src="config-extends.min.js"></script>
 
@@ -160,7 +160,7 @@ Result:
 let config = await configExtends.load(path.join(__dirname,'raspberry.yaml'));
 console.log(JSON.stringify(config.version,null,2));
 ```
-#### raspberry.yaml content
+raspberry.yaml
 ```
 version:
   PiA:
@@ -222,7 +222,7 @@ measure:
     long: 56.5  
 ```
 
-#### Result:
+Result:
 ```
 {
     "PiA": {
@@ -330,7 +330,7 @@ measure:
 let config = await ConfigExtends.load(path.join(__dirname,'test-1'));
 console.log(JSON.stringify(config,null,2));
 ```
-#### structure folder
+structure folder
 - test-1
   - folder1
     - file1.yaml  content => c: 3
@@ -342,7 +342,7 @@ console.log(JSON.stringify(config,null,2));
   - file.yaml     content => a: 1
                              b: "b"
 
-#### Result
+Result
 ```
 {
   "file": {
