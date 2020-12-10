@@ -52,14 +52,6 @@ var assert = require('assert');
         //example from folder    
         let config = await ConfigExtends.load(path.join(__dirname,'test-1'));
         console.log(JSON.stringify(config,null,2));
-        
-//         // let config = await ConfigExtends.load(path.join(__dirname,'tetris'));
-//         // console.log(JSON.stringify(config));
-//         // let list = []
-//         // for(let k in config.version){
-//         //     list.push(config.version[k]);
-//         // }
-//         // console.log(JSON.stringify(list));
     }
     catch (error) {     
         console.error(error);  
