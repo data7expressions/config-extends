@@ -63,7 +63,7 @@ let source ={
 let config = ConfigExtends.extends(source);
 console.log(JSON.stringify(config,null,2));
 ```
-Result:
+result:
 ```
 {
   "data": {
@@ -90,7 +90,7 @@ let source ={
 let config = ConfigExtends.extends(source);
 console.log(JSON.stringify(config,null,2));
 ```
-Result:
+result:
 ```
      "d": 3,
       "e": 4,
@@ -125,7 +125,7 @@ let source ={
 let config = ConfigExtends.extends(source);
 console.log(JSON.stringify(config,null,2));
 ```
-Result:
+result:
 ```
 {
   "data": {
@@ -222,7 +222,7 @@ measure:
     long: 56.5  
 ```
 
-Result:
+result:
 ```
 {
     "PiA": {
@@ -337,7 +337,7 @@ structure folder
   - folder2 
     - file1.yaml  content => _extends: [file,folder1.file1]
                              d: 1
-    - file2.yaml  content => _extends: [folder2.file1]
+    - file2.yaml  content => _extends: folder2.file1
                              e: 1
   - file.yaml     content => a: 1
                              b: "b"
