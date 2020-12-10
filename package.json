@@ -1,10 +1,10 @@
 {
   "name": "config-extends",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Allow to extend yaml or json files configuration",
   "main": "./lib/config-extends",
   "scripts": {
-    "test": "node test/index.js"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",

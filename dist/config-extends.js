@@ -1,49 +1,5 @@
-const Path = require('path');
-const Fs = require('fs');
-const Yaml = require('js-yaml');
-
-module.exports = class ConfigExtends
+class ConfigExtends
 {
-  static async load(path,format='yaml'){
-    let config = {};
-    if(Fs.lstatSync(path).isDirectory()){
-      let _format = '.'+format;
-      let list = await ConfigExtends._getFiles(path,'',_format);
-      for(let i=0;i<list.length;i++){
-        let filePath = list[i];
-        let fullPath = Path.join(path,filePath);
-        let content = Fs.readFileSync(fullPath,'utf8');
-        let data = format=='yaml' || format == 'yml'?Yaml.safeLoad(content):content;
-        let parseFilePath = Path.parse(filePath);
-        let a = parseFilePath.dir.split(Path.sep);
-        let b = parseFilePath.name.split('.');
-        let names = a != ''?a.concat(b):b;
-        ConfigExtends._setData(config,names,data);
-      }
-      config = ConfigExtends.extends(config);
-    }else{
-      let content = Fs.readFileSync(path,'utf8');
-      config = format=='yaml' || format == 'yml'?Yaml.safeLoad(content):content;
-      config = ConfigExtends.extends(config);
-    }
-    return config;    
-  }
-  static async _getFiles(rootPath,relativePath,format){
-    let files = [] 
-    let list = Fs.readdirSync(Path.join(rootPath,relativePath));
-    for(let i=0;i<list.length;i++){
-      let item = list[i];
-      let fullPath = Path.join(rootPath,relativePath,item);
-      if(!Fs.lstatSync(fullPath).isDirectory()){
-        if(Path.parse(fullPath).ext.toLocaleLowerCase() == format.toLocaleLowerCase() )
-          files.push(Path.join(relativePath,item))
-      }else
-      {
-        files =files.concat(await ConfigExtends._getFiles(rootPath,Path.join(relativePath,item),format));
-      }
-    }
-    return files;
-  }
   static extends(source,...args){
     let _config =Object.assign(source,args);    
     for(let k in _config)_config[k] =ConfigExtends._completeObject(_config,_config[k]);
@@ -75,8 +31,7 @@ module.exports = class ConfigExtends
         obj[k] = ConfigExtends._completeObject(config,obj[k]);
     obj['_completed']=true;
     return obj;
-  }
-  
+  }  
   static _extend(obj, base){
     if(Array.isArray(base))
       return base;    
@@ -110,6 +65,5 @@ module.exports = class ConfigExtends
     for(let k in obj)
       if(typeof obj[k] == 'object')
         ConfigExtends._removeFlags(obj[k]);      
-  } 
-
+  }
 }
