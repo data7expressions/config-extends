@@ -6,6 +6,7 @@ Allow to extend json or yaml/json files configuration
 - Can be loaded from yaml or json files
 - Can load from a directory including all its files
 - Available from browser and node.js
+- CLI
 
 ## Methods
 ### .extends(source,...args) [synchronously]
