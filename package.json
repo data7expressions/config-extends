@@ -4,7 +4,7 @@
   "description": "Allow to extend yaml or json files configuration",
   "main": "./lib/config-extends",
   "bin": {
-    "config-extends": "bin/config-extends.js"
+    "config-extends": "bin/config-extends"
   },
   "scripts": {
     "test": "mocha"
@@ -27,7 +27,6 @@
   },
   "homepage": "https://github.com/FlavioLionelRita/config-extends#readme",
   "dependencies": {
-    "argparse": "^2.0.1",
     "js-yaml": "^3.14.1",
     "minimist": "^1.2.5"
   },

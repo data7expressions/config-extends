@@ -14,20 +14,27 @@ This api allows to extend one or more json objects
   - source : object with extensions defined
   - args : others sources
 
-### .load(path,format='yaml') [asynchronous]
+### .apply(source,target) [asynchronous]
 This api allows to extend configuration from a file or several files from a path
 - Paramas: 
-  - path : object of file or folder
-  - format : file format [yaml|json]
+  - source : path of file or folder
+  - target : file result (optional)
   
 Note: Only node.js
 
 ## Installation
+### module for node.js
 ```
-npm i config-extends
+npm install config-extends
 ```
+### CLI executable
+If you want to extends from CLI, install config-extends globally:
+```
+npm install -g config-extends
+```
+## Usage 
 
-### Bundled YAML library for node.js
+### From library for node.js
 ```
 const ConfigExtends = require("config-extends")
 
@@ -39,7 +46,7 @@ let config = ConfigExtends.extends(source);
 console.log(JSON.stringify(config,null,2));
 ```
 
-### Bundled library for browsers
+### From library for browsers
 ```
 <script src="config-extends.min.js"></script>
 
@@ -50,7 +57,23 @@ let source ={
 let config = ConfigExtends.extends(source);
 console.log(JSON.stringify(config,null,2));
 ```
+### From CLI
+extends
+```
+usage: config-extends extends -s
 
+arguments:
+  -s, --source   Input json (serialized).
+```
+
+apply
+```
+usage: config-extends apply -s [-t]
+
+arguments:
+  -s, --source   Input path of folder or file.
+  -t, --target   output file (optional).
+```
 
 ## Examples
 
@@ -66,16 +89,8 @@ console.log(JSON.stringify(config,null,2));
 result:
 ```
 {
-  "data": {
-    "d": 3,
-    "e": 4,
-    "a": 1,
-    "b": 2
-  },
-  "base": {
-    "a": 1,
-    "b": 2
-  }
+  "data": {"d": 3,"e": 4,"a": 1,"b": 2 },
+  "base": {"a": 1,"b": 2}
 }
 ```
 
@@ -92,24 +107,12 @@ console.log(JSON.stringify(config,null,2));
 ```
 result:
 ```
-     "d": 3,
-      "e": 4,
-      "a": 1,
-      "b": 2
-    },
-    "2": {
-      "f": 3,
-      "g": 4,
-      "d": 3,
-      "e": 4,
-      "a": 1,
-      "b": 2
-    }
+{
+  "data": { 
+    "1":{"d": 3,"e": 4,"a": 1,"b": 2 },
+    "2":{"f": 3,"g": 4,"d": 3,"e": 4,"a": 1,"b": 2}
   },
-  "base": {
-    "a": 1,
-    "b": 2
-  }
+  "base": {"a": 1,"b": 2}
 }
 ```
 
@@ -129,35 +132,61 @@ result:
 ```
 {
   "data": {
-    "1": {
-      "d": 3,
-      "e": 4,
-      "a": 1,
-      "b": 2
-    },
-    "2": {
-      "f": 3,
-      "g": 4,
-      "a": 1,
-      "b": 2,
-      "h": "a",
-      "i": "b"
-    }
+    "1": {"d": 3,"e": 4,"a": 1,"b": 2},
+    "2": {"f": 3,"g": 4,"a": 1,"b": 2,"h": "a","i": "b"}
   },
-  "base": {
-    "a": 1,
-    "b": 2
-  },
-  "base2": {
-    "h": "a",
-    "i": "b"
+  "base": {"a": 1,"b": 2 },
+  "base2": {"h": "a","i": "b"}
+}
+```
+### apply from path
+```
+let config = await ConfigExtends.apply(path.join(__dirname,'test-1'));
+console.log(JSON.stringify(config,null,2));
+```
+structure folder
+- test-1
+  - folder1
+    - file1.yaml  content => c: 3
+  - folder2 
+    - file1.yaml  content => _extends: [file,folder1.file1]
+                             d: 1
+    - file2.yaml  content => _extends: folder2.file1
+                             e: 1
+  - file.yaml     content => a: 1
+                             b: "b"
+
+result
+```
+{
+  file: { a: 1, b: 'b' },
+  folder1: { file1: { c: 3 } },
+  folder2: {
+    file1: { d: 1, a: 1, b: 'b', c: 3 },
+    file2: { e: 1, d: 1, a: 1, b: 'b', c: 3 }
   }
 }
 ```
-
-### extends from single file
+### apply from path CLI
 ```
-let config = await configExtends.load(path.join(__dirname,'raspberry.yaml'));
+$ config-extends apply -s ./test/test-1
+```
+result:
+```
+{
+  file: { a: 1, b: 'b' },
+  folder1: { file1: { c: 3 } },
+  folder2: {
+    file1: { d: 1, a: 1, b: 'b', c: 3 },
+    file2: { e: 1, d: 1, a: 1, b: 'b', c: 3 }
+  }
+}
+```
+ 
+
+### apply from single file
+```
+let config = await configExtends.apply(path.join(__dirname,'raspberry.yaml'));
 console.log(JSON.stringify(config.version,null,2));
 ```
 raspberry.yaml
@@ -225,152 +254,21 @@ measure:
 result:
 ```
 {
-    "PiA": {
-        "wireless": false,
-        "measure": {
-            "high": 85.6,
-            "long": 56.5
-        },
-        "ethernet": false
-    },
-    "PiB": {
-        "wireless": false,
-        "measure": {
-            "high": 85.6,
-            "long": 56.5
-        },
-        "ethernet": true
-    },
-    "PiA+": {
-        "measure": {
-            "high": 85.6,
-            "long": 56.5
-        },
-        "wireless": false,
-        "ethernet": false
-    },
-    "PiB+": {
-        "wireless": false,
-        "measure": {
-            "high": 85.6,
-            "long": 56.5
-        },
-        "ethernet": true
-    },
-    "Pi2B": {
-        "measure": {
-            "high": 85.6,
-            "long": 56.5
-        }
-    },
-    "Pi3A": {
-        "wireless": true,
-        "measure": {
-            "high": 85.6,
-            "long": 56.5
-        },
-        "ethernet": false
-    },
-    "Pi3A+": {
-        "wireless": true,
-        "measure": {
-            "high": 85.6,
-            "long": 56.5
-        },
-        "ethernet": false
-    },
-    "Pi3B+": {
-        "wireless": true,
-        "measure": {
-            "high": 85.6,
-            "long": 56.5
-        },
-        "ethernet": true
-    },
-    "Pi4B1G": {
-        "memory": "1G",
-        "wireless": true,
-        "measure": {
-            "high": 85.6,
-            "long": 56.5
-        },
-        "ethernet": true
-    },
-    "Pi4B2G": {
-        "memory": "2G",
-        "wireless": true,
-        "measure": {
-            "high": 85.6,
-            "long": 56.5
-        },
-        "ethernet": true
-    },
-    "Pi4B4G": {
-        "memory": "4G",
-        "wireless": true,
-        "measure": {
-            "high": 85.6,
-            "long": 56.5
-        },
-        "ethernet": true
-    },
-    "Pi4B8G": {
-        "memory": "8G",
-        "wireless": true,
-        "measure": {
-            "high": 85.6,
-            "long": 56.5
-        },
-        "ethernet": true
-    }
+    "PiA":  {"wireless": false,"measure": {"high": 85.6,"long": 56.5 },"ethernet": false},
+    "PiB":  {"wireless": false,"measure": {"high": 85.6,"long": 56.5 },"ethernet": true },
+    "PiA+": {"measure": {"high": 85.6,"long": 56.5},"wireless": false,"ethernet": false },
+    "PiB+": {"wireless": false,"measure": {"high": 85.6,"long": 56.5},"ethernet": true },
+    "Pi2B": {"measure": {"high": 85.6,"long": 56.5}},
+    "Pi3A": {"wireless": true,"measure": {"high": 85.6,"long": 56.5},"ethernet": false },
+    "Pi3A+":{"wireless": true,"measure": {"high": 85.6,"long": 56.5},"ethernet": false },
+    "Pi3B+":{"wireless": true,"measure": {"high": 85.6,"long": 56.5},"ethernet": true },
+    "Pi4B1G":{"memory": "1G","wireless": true,"measure": {"high": 85.6,"long": 56.5},"ethernet": true},
+    "Pi4B2G":{"memory": "2G","wireless": true,"measure": {"high": 85.6,"long": 56.5},"ethernet": true},
+    "Pi4B4G":{"memory": "4G","wireless": true,"measure": {"high": 85.6,"long": 56.5 },"ethernet": true},
+    "Pi4B8G": {"memory": "8G","wireless": true,"measure": {"high": 85.6,"long": 56.5 },"ethernet": true}
 }
 ```
-### extends from path
-```
-let config = await ConfigExtends.load(path.join(__dirname,'test-1'));
-console.log(JSON.stringify(config,null,2));
-```
-structure folder
-- test-1
-  - folder1
-    - file1.yaml  content => c: 3
-  - folder2 
-    - file1.yaml  content => _extends: [file,folder1.file1]
-                             d: 1
-    - file2.yaml  content => _extends: folder2.file1
-                             e: 1
-  - file.yaml     content => a: 1
-                             b: "b"
 
-Result
-```
-{
-  "file": {
-    "a": 1,
-    "b": "b"
-  },
-  "folder1": {
-    "file1": {
-      "c": 3
-    }
-  },
-  "folder2": {
-    "file1": {
-      "d": 1,
-      "a": 1,
-      "b": "b",
-      "c": 3
-    },
-    "file2": {
-      "e": 1,
-      "d": 1,
-      "a": 1,
-      "b": "b",
-      "c": 3
-    }
-  }
-}
-```
 ## Test
 ```
 npm test

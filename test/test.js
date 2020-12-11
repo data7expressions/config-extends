@@ -50,7 +50,7 @@ var assert = require('assert');
 //         // console.log(JSON.stringify(config.version));
 
         //example from folder    
-        let config = await ConfigExtends.load(path.join(__dirname,'test-1'));
+        let config = await ConfigExtends.apply(path.join(__dirname,'test-1'),'result');
         console.log(JSON.stringify(config,null,2));
     }
     catch (error) {     
