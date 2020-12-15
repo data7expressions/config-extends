@@ -1,0 +1,40 @@
+list:
+  - name: I
+    color: cyan
+    shape: |
+      #
+      #
+      #
+      #
+  - name: J
+    color: blue
+    shape: |
+      -#
+      -#
+      ## 
+  - name: L
+    color: orange
+    shape: |
+      #-
+      #-
+      ##                          
+  - name: O
+    color: yellow
+    shape: |
+      ##
+      ##         
+  - name: S
+    color: green
+    shape: |
+      -##
+      ##-
+  - name: T
+    color: purple
+    shape: |
+      ###
+      -#-
+  - name: Z
+    color: red
+    shape: |
+      ##-
+      -##   

@@ -1,0 +1,104 @@
+version:
+  PiA:
+    wireless: false
+    measure:
+      high: 85.6
+      long: 56.5
+    ethernet: false
+  PiB:
+    wireless: false
+    measure:
+      high: 85.6
+      long: 56.5
+    ethernet: true
+  PiA+:
+    measure:
+      high: 85.6
+      long: 56.5
+    wireless: false
+    ethernet: false
+  PiB+:
+    wireless: false
+    measure:
+      high: 85.6
+      long: 56.5
+    ethernet: true
+  Pi2B:
+    measure:
+      high: 85.6
+      long: 56.5
+  Pi3A:
+    wireless: true
+    measure:
+      high: 85.6
+      long: 56.5
+    ethernet: false
+  Pi3A+:
+    wireless: true
+    measure:
+      high: 85.6
+      long: 56.5
+    ethernet: false
+  Pi3B+:
+    wireless: true
+    measure:
+      high: 85.6
+      long: 56.5
+    ethernet: true
+  Pi4B1G:
+    memory: 1G
+    wireless: true
+    measure:
+      high: 85.6
+      long: 56.5
+    ethernet: true
+  Pi4B2G:
+    memory: 2G
+    wireless: true
+    measure:
+      high: 85.6
+      long: 56.5
+    ethernet: true
+  Pi4B4G:
+    memory: 4G
+    wireless: true
+    measure:
+      high: 85.6
+      long: 56.5
+    ethernet: true
+  Pi4B8G:
+    memory: 8G
+    wireless: true
+    measure:
+      high: 85.6
+      long: 56.5
+    ethernet: true
+family:
+  Pi:
+    wireless: false
+    measure:
+      high: 85.6
+      long: 56.5
+  Pi3:
+    wireless: true
+    measure:
+      high: 85.6
+      long: 56.5
+  Pi4:
+    wireless: true
+    measure:
+      high: 85.6
+      long: 56.5
+    ethernet: true
+model:
+  A:
+    ethernet: false
+  B:
+    ethernet: true
+measure:
+  standard:
+    high: 85.6
+    long: 56.5
+  compact:
+    high: 65
+    long: 56.5

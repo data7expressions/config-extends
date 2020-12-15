@@ -1,0 +1,53 @@
+level: 1
+sequence:
+  type: random
+  shapes: LTOI
+  speedMin: 1
+  speedMax: 3
+age:
+  from: 4
+  To: 4
+screen:
+  pixelSize: 32
+  cols: 10
+  rows: 20
+shapes:
+  - name: I
+    color: cyan
+    shape: |
+      #
+      #
+      #
+      #
+  - name: J
+    color: blue
+    shape: |
+      -#
+      -#
+      ## 
+  - name: L
+    color: orange
+    shape: |
+      #-
+      #-
+      ##                          
+  - name: O
+    color: yellow
+    shape: |
+      ##
+      ##         
+  - name: S
+    color: green
+    shape: |
+      -##
+      ##-
+  - name: T
+    color: purple
+    shape: |
+      ###
+      -#-
+  - name: Z
+    color: red
+    shape: |
+      ##-
+      -##   

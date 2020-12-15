@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "mocha": "^8.2.1",
-    "chai": "^4.2.0"
+    "chai": "^4.2.0",
+    "dir-compare": "^2.4.0"
   }
 }
