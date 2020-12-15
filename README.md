@@ -25,18 +25,18 @@ Note: Only node.js
 
 ## Installation
 ### module for node.js
-```
-npm install config-extends
+```Shell
+$ npm install config-extends
 ```
 ### CLI executable
 If you want to extends from CLI, install config-extends globally:
-```
-npm install -g config-extends
+```Shell
+$ npm install -g config-extends
 ```
 ## Usage 
 
 ### From library for node.js
-```
+```javascript
 const ConfigExtends = require("config-extends")
 
 let source ={
@@ -48,7 +48,7 @@ console.log(JSON.stringify(config,null,2));
 ```
 
 ### From library for browsers
-```
+```javascript
 <script src="config-extends.min.js"></script>
 
 let source ={
@@ -79,7 +79,7 @@ arguments:
 ## Examples
 
 ### Simple extension
-```
+```javascript
 let source ={
     data : {_extends:'base',d:3,e:4},
     base: {a:1,b:2}
@@ -88,7 +88,7 @@ let config = ConfigExtends.extends(source);
 console.log(JSON.stringify(config,null,2));
 ```
 result:
-```
+```json
 {
   "data": {"d": 3,"e": 4,"a": 1,"b": 2 },
   "base": {"a": 1,"b": 2}
@@ -96,7 +96,7 @@ result:
 ```
 
 ### Chain extension
-```
+```javascript
 let source ={
     data: { 1: {_extends:'base',d:3,e:4},
            2: {_extends:'data.1', f:3,g:4},
@@ -107,7 +107,7 @@ let config = ConfigExtends.extends(source);
 console.log(JSON.stringify(config,null,2));
 ```
 result:
-```
+```json
 {
   "data": { 
     "1":{"d": 3,"e": 4,"a": 1,"b": 2 },
@@ -118,7 +118,7 @@ result:
 ```
 
 ### Multiple extension
-```
+```javascript
 let source ={
     data: { 1: {_extends:'base',d:3,e:4},
             2: {_extends:['base','base2'], f:3,g:4},
@@ -130,7 +130,7 @@ let config = ConfigExtends.extends(source);
 console.log(JSON.stringify(config,null,2));
 ```
 result:
-```
+```json
 {
   "data": {
     "1": {"d": 3,"e": 4,"a": 1,"b": 2},
@@ -141,7 +141,7 @@ result:
 }
 ```
 ### apply from path
-```
+```javascript
 let config = await ConfigExtends.apply(path.join(__dirname,'test-1'));
 console.log(JSON.stringify(config,null,2));
 ```
@@ -158,13 +158,13 @@ structure folder
                              b: "b"
 
 result
-```
+```json
 {
-  file: { a: 1, b: 'b' },
-  folder1: { file1: { c: 3 } },
-  folder2: {
-    file1: { d: 1, a: 1, b: 'b', c: 3 },
-    file2: { e: 1, d: 1, a: 1, b: 'b', c: 3 }
+  "file": { "a": 1, "b": "b" },
+  "folder1": { "file1": { "c": 3 } },
+  "folder2": {
+    "file1": { "d": 1, "a": 1, "b": "b", "c": 3 },
+    "file2": { "e": 1, "d": 1, "a": 1, "b": "b", "c": 3 }
   }
 }
 ```
@@ -173,13 +173,13 @@ result
 $ config-extends apply -s ./test/test-1
 ```
 result:
-```
+```json
 {
-  file: { a: 1, b: 'b' },
-  folder1: { file1: { c: 3 } },
-  folder2: {
-    file1: { d: 1, a: 1, b: 'b', c: 3 },
-    file2: { e: 1, d: 1, a: 1, b: 'b', c: 3 }
+  "file": { "a": 1, "b": "b" },
+  "folder1": { "file1": { "c": 3 } },
+  "folder2": {
+    "file1": { "d": 1, "a": 1, "b": "b", "c": 3 },
+    "file2": { "e": 1, "d": 1, "a": 1, "b": "b", "c": 3 }
   }
 }
 ```
@@ -191,7 +191,7 @@ let config = await configExtends.apply(path.join(__dirname,'raspberry.yaml'));
 console.log(JSON.stringify(config.version,null,2));
 ```
 raspberry.yaml
-```
+```yaml
 version:
   PiA:
     _extends: [family.Pi, model.A]
@@ -253,7 +253,7 @@ measure:
 ```
 
 result:
-```
+```yaml
 {
     "PiA":  {"wireless": false,"measure": {"high": 85.6,"long": 56.5 },"ethernet": false},
     "PiB":  {"wireless": false,"measure": {"high": 85.6,"long": 56.5 },"ethernet": true },
@@ -271,8 +271,8 @@ result:
 ```
 
 ## Test
-```
-npm test
+```Shell
+$ npm test
 ```
 
 
