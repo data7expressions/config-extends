@@ -1,6 +1,6 @@
 {
   "name": "config-extends",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Allow to extend yaml or json files configuration",
   "main": "./lib/config-extends",
   "bin": {
