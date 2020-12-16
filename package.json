@@ -16,9 +16,11 @@
   "keywords": [
     "json",
     "yaml",
-    "extentd",
+    "extend",
+    "extends",
     "config",
-    "configuration"
+    "configuration",
+    "inheritance"
   ],
   "author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
   "license": "MIT",
