@@ -1,17 +1,17 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: polaris-dashboard
-  namespace: polaris
-  labels:
-    app: polaris
-spec:
-  ports:
-  - name: http-dashboard
-    port: 80
-    protocol: TCP
-    targetPort: 8080
-  selector:
-    app: polaris
-    component: dashboard
-  type: ClusterIP
+clusterIP:
+  apiVersion: v1
+  kind: Service
+  metadata:
+    name: ${name}
+    namespace: ${namespace}
+    labels:
+      app: ${name}
+  spec:
+    ports:
+    - name: http
+      port: ${port:8080}
+      protocol: TCP
+      targetPort: ${port:8080}
+    selector:
+      app: ${name}
+    type: ClusterIP

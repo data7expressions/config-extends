@@ -97,7 +97,7 @@ describe('apply', function() {
         let toCompare ='test/pacman/to-compare';
         let expected = 'identical';
         it(expected, async ()=> {
-            let config = await ConfigExtends.apply(source,target);
+            let config = await ConfigExtends.apply(source,target,{outputs:['versions']});
             let compareResult = await dircompare.compare(target,toCompare,{compareContent:true});
             let result = compareResult.same? 'identical' : 'different';
             assert.strictEqual(result,expected);
