@@ -9,9 +9,9 @@ clusterIP:
   spec:
     ports:
     - name: http
-      port: ${port:8080}
+      port: ${port}
       protocol: TCP
-      targetPort: ${port:8080}
+      targetPort: ${port}
     selector:
       app: ${name}
     type: ClusterIP

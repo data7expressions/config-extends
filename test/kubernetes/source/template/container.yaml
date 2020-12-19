@@ -3,5 +3,5 @@ name: ${name}
 image: ${image}
 imagePullPolicy: 'Always'
 ports:
-- containerPort: ${port:8080}
+- containerPort: ${port}
 serviceAccountName: polaris
