@@ -4,11 +4,18 @@ const ConfigExtends = require('./lib/config-extends');
 (async () => { 
     try {      
         
-        let source ='test/kubernetes/source';
-        let target ='test/kubernetes/target';
-        let toCompare ='test/kubernetes/to-compare';
+        // let source ='test/kubernetes/source';
+        // let target ='test/kubernetes/target';
+        // let toCompare ='test/kubernetes/to-compare';
+        // let config = await ConfigExtends.apply(source,target,{outputs:['app']});
 
-        let config = await ConfigExtends.apply(source,target,{outputs:['app']});
+        let fileSource ='test/raspberry/source/raspberry.yaml';
+        let filetTarget ='test/raspberry/target/raspberry.yaml';
+        let target ='test/raspberry/target';
+        let toCompare ='test/raspberry/to-compare';
+        let expected = 'identical';
+        let config = await ConfigExtends.apply(fileSource,filetTarget);
+
         let compareResult = await dircompare.compare(target,toCompare,{compareContent:true});
         let result = compareResult.same? 'identical' : 'different';
         console.log(result);

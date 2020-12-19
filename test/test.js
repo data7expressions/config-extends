@@ -103,6 +103,18 @@ describe('apply', function() {
             assert.strictEqual(result,expected);
         });
     });
+    describe('Extends kubernetes', function() {
+        let source ='test/kubernetes/source';
+        let target ='test/kubernetes/target';
+        let toCompare ='test/kubernetes/to-compare';
+        let expected = 'identical';
+        it(expected, async ()=> {
+            let config = await ConfigExtends.apply(source,target,{outputs:['app']});
+            let compareResult = await dircompare.compare(target,toCompare,{compareContent:true});
+            let result = compareResult.same? 'identical' : 'different';
+            assert.strictEqual(result,expected);
+        });
+    });
 });
 
 
