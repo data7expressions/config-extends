@@ -5,6 +5,6 @@ metadata:
   labels:
     app: ${name}
 rules:
-  - apiGroups: ${apiGroups:['*']}
-    resources: ${resources:['*']}
-    verbs: ${verbs:['*']}
+  - apiGroups: ${apiGroups}
+    resources: ${resources}
+    verbs: ${verbs}
