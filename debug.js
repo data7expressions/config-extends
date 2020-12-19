@@ -4,11 +4,11 @@ const ConfigExtends = require('./lib/config-extends');
 (async () => { 
     try {      
         
-        let source ='test/pacman/source';
-        let target ='test/pacman/target';
-        let toCompare ='test/pacman/to-compare';
+        let source ='test/kubernetes/source';
+        let target ='test/kubernetes/target';
+        let toCompare ='test/kubernetes/to-compare';
 
-        let config = await ConfigExtends.apply(source,target);
+        let config = await ConfigExtends.apply(source,target,{outputs:['app']});
         let compareResult = await dircompare.compare(target,toCompare,{compareContent:true});
         let result = compareResult.same? 'identical' : 'different';
         console.log(result);

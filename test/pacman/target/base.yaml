@@ -1,7 +1,0 @@
-ghost:
-  quantity: 4
-  speed:
-    from: 1
-    to: 3
-mouth:
-  speed: 2

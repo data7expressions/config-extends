@@ -1,0 +1,28 @@
+_params:
+  namespace: polaris
+  name: polaris
+  port: 8080
+  image: quay.io/fairwinds/polaris:1.2
+  replicas: 1
+---  
+_extends: template.namespace
+--- 
+_extends: template.serviceAccount
+---  
+_extends: template.clusterRole
+rules:
+  - apiGroups: ['']
+    resources: ['nodes']
+    verbs: ['get','list']
+---    
+_extends: 
+  template.clusterRoleBinding:
+    role: ${name}
+---        
+_extends: 
+  template.clusterRoleBinding:
+    role: view
+---            
+_extends: template.deployment
+---  
+_extends: template.service.clusterIP
