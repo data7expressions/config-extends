@@ -53,68 +53,68 @@ describe('extends', function() {
         });
     });
 });
-describe('apply', function() {
-    describe('Extends single file', function() {
-        let fileSource ='test/raspberry/source/raspberry.yaml';
-        let filetTarget ='test/raspberry/target/raspberry.yaml';
-        let target ='test/raspberry/target';
-        let toCompare ='test/raspberry/to-compare';
-        let expected = 'identical';
-        it(expected, async ()=> {
-            let config = await ConfigExtends.apply(fileSource,filetTarget);
-            let compareResult = await dircompare.compare(target,toCompare,{compareContent:true});
-            let result = compareResult.same? 'identical' : 'different';
-            assert.strictEqual(result,expected);
-        });
-    });
-    describe('Extends simple folder', function() {
-        let source ='test/folder/source';
-        let target ='test/folder/target';
-        let toCompare ='test/folder/to-compare';
-        let expected = 'identical';
-        it(expected, async ()=> {
-            let config = await ConfigExtends.apply(source,target);
-            let compareResult = await dircompare.compare(target,toCompare,{compareContent:true});
-            let result = compareResult.same? 'identical' : 'different';
-            assert.strictEqual(result,expected);
-        });
-    });
-    describe('Extends tetris folder', function() {
-        let source ='test/tetris/source';
-        let target ='test/tetris/target';
-        let toCompare ='test/tetris/to-compare';
-        let expected = 'identical';
-        it(expected, async ()=> {
-            let config = await ConfigExtends.apply(source,target);
-            let compareResult = await dircompare.compare(target,toCompare,{compareContent:true});
-            let result = compareResult.same? 'identical' : 'different';
-            assert.strictEqual(result,expected);
-        });
-    });
-    describe('Extends pacman folder', function() {
-        let source ='test/pacman/source';
-        let target ='test/pacman/target';
-        let toCompare ='test/pacman/to-compare';
-        let expected = 'identical';
-        it(expected, async ()=> {
-            let config = await ConfigExtends.apply(source,target,{outputs:['versions']});
-            let compareResult = await dircompare.compare(target,toCompare,{compareContent:true});
-            let result = compareResult.same? 'identical' : 'different';
-            assert.strictEqual(result,expected);
-        });
-    });
-    describe('Extends kubernetes', function() {
-        let source ='test/kubernetes/source';
-        let target ='test/kubernetes/target';
-        let toCompare ='test/kubernetes/to-compare';
-        let expected = 'identical';
-        it(expected, async ()=> {
-            let config = await ConfigExtends.apply(source,target,{addSources:['test/kubernetes/base'] });
-            let compareResult = await dircompare.compare(target,toCompare,{compareContent:true});
-            let result = compareResult.same? 'identical' : 'different';
-            assert.strictEqual(result,expected);
-        });
-    });
-});
+// describe('apply', function() {
+//     describe('Extends single file', function() {
+//         let fileSource ='test/raspberry/source/raspberry.yaml';
+//         let filetTarget ='test/raspberry/target/raspberry.yaml';
+//         let target ='test/raspberry/target';
+//         let toCompare ='test/raspberry/to-compare';
+//         let expected = 'identical';
+//         it(expected, async ()=> {
+//             let config = await ConfigExtends.apply(fileSource,filetTarget);
+//             let compareResult = await dircompare.compare(target,toCompare,{compareContent:true});
+//             let result = compareResult.same? 'identical' : 'different';
+//             assert.strictEqual(result,expected);
+//         });
+//     });
+//     describe('Extends simple folder', function() {
+//         let source ='test/folder/source';
+//         let target ='test/folder/target';
+//         let toCompare ='test/folder/to-compare';
+//         let expected = 'identical';
+//         it(expected, async ()=> {
+//             let config = await ConfigExtends.apply(source,target);
+//             let compareResult = await dircompare.compare(target,toCompare,{compareContent:true});
+//             let result = compareResult.same? 'identical' : 'different';
+//             assert.strictEqual(result,expected);
+//         });
+//     });
+//     describe('Extends tetris folder', function() {
+//         let source ='test/tetris/source';
+//         let target ='test/tetris/target';
+//         let toCompare ='test/tetris/to-compare';
+//         let expected = 'identical';
+//         it(expected, async ()=> {
+//             let config = await ConfigExtends.apply(source,target);
+//             let compareResult = await dircompare.compare(target,toCompare,{compareContent:true});
+//             let result = compareResult.same? 'identical' : 'different';
+//             assert.strictEqual(result,expected);
+//         });
+//     });
+//     describe('Extends pacman folder', function() {
+//         let source ='test/pacman/source';
+//         let target ='test/pacman/target';
+//         let toCompare ='test/pacman/to-compare';
+//         let expected = 'identical';
+//         it(expected, async ()=> {
+//             let config = await ConfigExtends.apply(source,target,{outputs:['versions']});
+//             let compareResult = await dircompare.compare(target,toCompare,{compareContent:true});
+//             let result = compareResult.same? 'identical' : 'different';
+//             assert.strictEqual(result,expected);
+//         });
+//     });
+//     describe('Extends kubernetes', function() {
+//         let source ='test/kubernetes/source';
+//         let target ='test/kubernetes/target';
+//         let toCompare ='test/kubernetes/to-compare';
+//         let expected = 'identical';
+//         it(expected, async ()=> {
+//             let config = await ConfigExtends.apply(source,target,{addSources:['test/kubernetes/base'] });
+//             let compareResult = await dircompare.compare(target,toCompare,{compareContent:true});
+//             let result = compareResult.same? 'identical' : 'different';
+//             assert.strictEqual(result,expected);
+//         });
+//     });
+// });
 
 
