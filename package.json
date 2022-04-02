@@ -1,40 +1,40 @@
 {
-  "name": "config-extends",
-  "version": "1.0.5",
-  "description": "Allow to extend yaml or json files configuration",
-  "main": "./lib/config-extends",
-  "bin": {
-    "config-extends": "bin/config-extends"
-  },
-  "scripts": {
-    "test": "mocha"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/FlavioLionelRita/config-extends.git"
-  },
-  "keywords": [
-    "json",
-    "yaml",
-    "extend",
-    "extends",
-    "config",
-    "configuration",
-    "inheritance"
-  ],
-  "author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/FlavioLionelRita/config-extends/issues"
-  },
-  "homepage": "https://github.com/FlavioLionelRita/config-extends#readme",
-  "dependencies": {
-    "js-yaml": "^3.14.1",
-    "minimist": "^1.2.5"
-  },
-  "devDependencies": {
-    "mocha": "^8.2.1",
-    "chai": "^4.2.0",
-    "dir-compare": "^2.4.0"
-  }
+	"name": "config-extends",
+	"version": "1.0.6",
+	"description": "Allow to extend yaml or json files configuration",
+	"main": "./lib/config-extends",
+	"bin": {
+		"config-extends": "bin/config-extends"
+	},
+	"scripts": {
+		"test": "mocha"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/FlavioLionelRita/config-extends.git"
+	},
+	"keywords": [
+		"json",
+		"yaml",
+		"extend",
+		"extends",
+		"config",
+		"configuration",
+		"inheritance"
+	],
+	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/FlavioLionelRita/config-extends/issues"
+	},
+	"homepage": "https://github.com/FlavioLionelRita/config-extends#readme",
+	"dependencies": {
+		"js-yaml": "^4.1.0",
+		"minimist": "^1.2.6"
+	},
+	"devDependencies": {
+		"mocha": "^9.2.2",
+		"chai": "^4.3.6",
+		"dir-compare": "^4.0.0"
+	}
 }
