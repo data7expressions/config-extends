@@ -1,0 +1,10 @@
+{
+	"entryPoints": [
+		"src/lib"
+	],
+	"out": "doc/source",
+	"excludePrivate": true,
+	"excludeProtected": true,
+	"name": "jemv",
+	"readme": "none"
+}

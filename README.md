@@ -1,7 +1,9 @@
 # Config Extends
+
 Allow to extend json or yaml/json files configuration
 
 ## Features
+
 - Multiple extension
 - Can be loaded from yaml or json files
 - Can load from a directory including all its files
@@ -9,33 +11,45 @@ Allow to extend json or yaml/json files configuration
 - CLI
 
 ## Methods
+
 ### .extends(source,...args) [synchronously]
-This api allows to extend one or more json objects 
-- Paramas: 
+
+This api allows to extend one or more json objects
+
+- Params:
   - source : object with extensions defined
   - args : others sources
 
 ### .apply(source,target) [asynchronous]
+
 This api allows to extend configuration from a file or several files from a path
-- Paramas: 
+
+- Params:
   - source : path of file or folder
   - target : file result (optional)
   
 Note: Only node.js
 
 ## Installation
+
 ### module for node.js
+
 ```Shell
-$ npm install config-extends
+npm install config-extends
 ```
+
 ### CLI executable
+
 If you want to extends from CLI, install config-extends globally:
+
 ```Shell
-$ npm install -g config-extends
+npm install -g config-extends
 ```
-## Usage 
+
+## Usage
 
 ### From library for node.js
+
 ```javascript
 const ConfigExtends = require("config-extends")
 
@@ -48,6 +62,7 @@ console.log(JSON.stringify(config,null,2));
 ```
 
 ### From library for browsers
+
 ```javascript
 <script src="config-extends.min.js"></script>
 
@@ -58,9 +73,12 @@ let source ={
 let config = ConfigExtends.extends(source);
 console.log(JSON.stringify(config,null,2));
 ```
+
 ### From CLI
+
 extends
-```
+
+```shell
 usage: config-extends extends -s
 
 arguments:
@@ -68,7 +86,8 @@ arguments:
 ```
 
 apply
-```
+
+```shell
 usage: config-extends apply -s [-t]
 
 arguments:
@@ -79,6 +98,7 @@ arguments:
 ## Examples
 
 ### Simple extension
+
 ```javascript
 let source ={
     data : {_extends:'base',d:3,e:4},
@@ -87,7 +107,9 @@ let source ={
 let config = ConfigExtends.extends(source);
 console.log(JSON.stringify(config,null,2));
 ```
+
 result:
+
 ```json
 {
   "data": {"d": 3,"e": 4,"a": 1,"b": 2 },
@@ -96,6 +118,7 @@ result:
 ```
 
 ### Chain extension
+
 ```javascript
 let source ={
     data: { 1: {_extends:'base',d:3,e:4},
@@ -106,7 +129,9 @@ let source ={
 let config = ConfigExtends.extends(source);
 console.log(JSON.stringify(config,null,2));
 ```
+
 result:
+
 ```json
 {
   "data": { 
@@ -118,6 +143,7 @@ result:
 ```
 
 ### Multiple extension
+
 ```javascript
 let source ={
     data: { 1: {_extends:'base',d:3,e:4},
@@ -129,7 +155,9 @@ let source ={
 let config = ConfigExtends.extends(source);
 console.log(JSON.stringify(config,null,2));
 ```
+
 result:
+
 ```json
 {
   "data": {
@@ -140,16 +168,20 @@ result:
   "base2": {"h": "a","i": "b"}
 }
 ```
+
 ### apply from path
+
 ```javascript
 let config = await ConfigExtends.apply(path.join(__dirname,'test-1'));
 console.log(JSON.stringify(config,null,2));
 ```
+
 structure folder
+
 - test-1
   - folder1
     - file1.yaml  content => c: 3
-  - folder2 
+  - folder2
     - file1.yaml  content => _extends: [file,folder1.file1]
                              d: 1
     - file2.yaml  content => _extends: folder2.file1
@@ -158,6 +190,7 @@ structure folder
                              b: "b"
 
 result
+
 ```json
 {
   "file": { "a": 1, "b": "b" },
@@ -168,11 +201,15 @@ result
   }
 }
 ```
+
 ### apply from path CLI
+
+```shell
+config-extends apply -s ./test/test-1
 ```
-$ config-extends apply -s ./test/test-1
-```
+
 result:
+
 ```json
 {
   "file": { "a": 1, "b": "b" },
@@ -183,14 +220,16 @@ result:
   }
 }
 ```
- 
 
 ### apply from single file
-```
+
+```javascript
 let config = await configExtends.apply(path.join(__dirname,'raspberry.yaml'));
 console.log(JSON.stringify(config.version,null,2));
 ```
+
 raspberry.yaml
+
 ```yaml
 version:
   PiA:
@@ -253,6 +292,7 @@ measure:
 ```
 
 result:
+
 ```yaml
 {
     "PiA":  {"wireless": false,"measure": {"high": 85.6,"long": 56.5 },"ethernet": false},
@@ -271,8 +311,7 @@ result:
 ```
 
 ## Test
+
 ```Shell
-$ npm test
+npm run test
 ```
-
-
