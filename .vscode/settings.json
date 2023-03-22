@@ -1,0 +1,12 @@
+{
+    "eslint.format.enable": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "editor.tabSize": 2,
+    "editor.insertSpaces": false,
+    "cSpell.words": [
+      "cqrs",
+      "Flavio"
+    ]
+}

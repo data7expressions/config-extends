@@ -1,0 +1,213 @@
+data:
+  mappings:
+    - name: default
+      entities:
+        # Abstracts 
+        - name: Basics
+          abstract: true
+          properties:
+            - name: created
+              mapping: created
+            - name: createdBy
+              mapping: created_by
+        # Loc
+        - name: LocCountries
+          mapping: tbl_loc_countries
+          properties:
+            - name: iso3
+              mapping: iso3
+            - name: name
+              mapping: name
+            - name: iso
+              mapping: iso
+            - name: numericCode
+              mapping: numeric_code
+        - name: LocAreas
+          mapping: tbl_loc_areas
+          properties:
+            - name: code
+              mapping: code
+            - name: parentCode
+              mapping: parent
+            - name: countryCode
+              mapping: country  
+            - name: type
+              mapping: type           
+            - name: name
+              mapping: name
+        - name: LocAddresses
+          mapping: tbl_loc_addresses
+          properties:
+            - name: id
+              mapping: id
+            - name: countryCode
+              mapping: country
+            - name: areaCode
+              mapping: area 
+            - name: streetName
+              mapping: street
+            - name: streetType
+              enum: StreetType
+              mapping: street_type
+            - name: streetNrFirst
+              mapping: nro
+            - name: zipCode
+              mapping: zip_code
+            - name: city
+              mapping: city
+            - name: additionalData
+              mapping: additional_data
+        # Party
+        - name: PmIndustryTypes
+          mapping: tbl_pm_industry_types
+          properties:
+            - name: code
+              mapping: code
+            - name: name
+              mapping: name
+        - name: PmParties
+          extends: Basics
+          mapping: tbl_pm_party
+          properties:
+            - name: id
+              mapping: id
+            - name: type
+              mapping: type
+            - name: status
+              mapping: status
+            - name: registeredDate
+              mapping: registered_date
+        - name: PmIdentifications
+          extends: Basics
+          mapping: tbl_pm_identifications
+          properties:
+            - name: id
+              mapping: id
+            - name: type
+              mapping: type
+            - name: value
+              mapping: value  
+            - name: partyId
+              mapping: party_id         
+            - name: source
+              mapping: source
+        - name: PmContactMediums
+          extends: Basics
+          mapping: tbl_pm_contract_mediums
+          properties:
+            - name: id
+              mapping: id
+            - name: partyId
+              mapping: party_id  
+            - name: type
+              mapping: type         
+            - name: value
+              mapping: value
+            - name: isMain
+              mapping: is_main  
+            - name: isFavorite
+              mapping: is_favorite
+            - name: source
+              mapping: source
+        - name: PmIndividuals
+          extends: Basics
+          mapping: tbl_pm_individuals
+          properties:
+            - name: partyId
+              mapping: party_id
+            - name: gender
+              enum: Gender
+              mapping: gender
+            # - name: maritalStatus
+            #   mapping: MARITAL_STATUS  
+            - name: birthDate
+              mapping: birth_date
+            - name: deathDate
+              mapping: death_date
+            - name: nationalityCode
+              mapping: nationality
+            - name: givenNames
+              mapping: given_names
+            - name: middleNames
+              mapping: middle_names
+            - name: familyNames
+              mapping: family_names
+            - name: legalName
+              mapping: legal_name     
+        - name: PmOrganizations
+          extends: Basics
+          mapping: tbl_pm_organizations
+          properties:
+            - name: partyId
+              mapping: party_id
+            - name: legalPeriodFrom
+              mapping: legal_period_from
+            - name: tradingName
+              mapping: trading_name
+            - name: industryTypeCode
+              mapping: industry_type
+            - name: commercialDescription
+              mapping: commercial_description
+    - name: oracle
+      extends: default
+      entities:
+        #  Party
+        - name: PmIndustryTypes
+          sequence: sq_pm_industry_types
+        - name: PmParties
+          sequence: sq_pm_parties
+        - name: PmIdentifications
+          sequence: sq_pm_identifications
+        - name: PmContactMediums
+          sequence: sq_pm_contact_mediums
+        - name: PmIndividuals
+          sequence: sq_pm_individuals  
+        - name: PmOrganizations
+          sequence: sq_pm_organizations
+  sources:
+    - name: locations
+      mapping: default
+      dialect: MySQL
+      connection: ${CNX_LOCATIONS}
+    - name: parties
+      mapping: default
+      dialect: MySQL
+      connection: ${CNX_PARTIES}
+    - name: ledgerAccounts
+      mapping: default
+      dialect: MySQL
+      connection: ${CNX_LEDGER_ACCOUNTS}
+    - name: debtors
+      mapping: default
+      dialect: MySQL
+      connection: ${CNX_DEBTORS}
+    - name: insights
+      mapping: default
+      dialect: PostgreSQL
+      connection: ${CNX_INSIGHTS}
+  stages:
+    - name: default
+      sources:
+        - name: locations
+          condition: entity.startWith("Loc")
+        - name: parties
+          condition: entity.startWith("Pm")
+        - name: ledgerAccounts
+          condition: entity.startWith("Lam")
+        - name: debtors
+          condition: entity.startWith("Db")  
+    - name: insights
+      sources:
+        - name: insights
+    - name: cqrs
+      sources:
+        - name: insights
+          condition: action == "select"
+        - name: locations
+          condition: entity.startWith("Loc")
+        - name: parties
+          condition: entity.startWith("Pm")
+        - name: ledgerAccounts
+          condition: entity.startWith("Lam")
+        - name: debtors
+          condition: entity.startWith("Db")      
