@@ -1,0 +1,3 @@
+_extends: [business.common.model,business.location.model, business.party.model]
+views:
+  - name: default

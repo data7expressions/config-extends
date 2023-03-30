@@ -1,0 +1,48 @@
+_extends: [business.common.data,business.location.data, business.party.data]
+sources:
+  - name: locations
+    mapping: default
+    dialect: MySQL
+    connection: ${CNX_LOCATIONS}
+  - name: parties
+    mapping: default
+    dialect: MySQL
+    connection: ${CNX_PARTIES}
+  - name: ledgerAccounts
+    mapping: default
+    dialect: MySQL
+    connection: ${CNX_LEDGER_ACCOUNTS}
+  - name: debtors
+    mapping: default
+    dialect: MySQL
+    connection: ${CNX_DEBTORS}
+  - name: insights
+    mapping: default
+    dialect: PostgreSQL
+    connection: ${CNX_INSIGHTS}
+stages:
+  - name: default
+    sources:
+      - name: locations
+        condition: entity.startWith("Loc")
+      - name: parties
+        condition: entity.startWith("Pm")
+      - name: ledgerAccounts
+        condition: entity.startWith("Lam")
+      - name: debtors
+        condition: entity.startWith("Db")  
+  - name: insights
+    sources:
+      - name: insights
+  - name: cqrs
+    sources:
+      - name: insights
+        condition: action == "select"
+      - name: locations
+        condition: entity.startWith("Loc")
+      - name: parties
+        condition: entity.startWith("Pm")
+      - name: ledgerAccounts
+        condition: entity.startWith("Lam")
+      - name: debtors
+        condition: entity.startWith("Db")      

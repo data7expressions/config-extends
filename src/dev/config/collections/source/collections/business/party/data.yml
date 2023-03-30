@@ -1,0 +1,108 @@
+mappings:
+  - name: default
+    entities:
+      - name: PmIndustryTypes
+        mapping: tbl_pm_industry_types
+        properties:
+          - name: code
+            mapping: code
+          - name: name
+            mapping: name
+      - name: PmParties
+        extends: Basics
+        mapping: tbl_pm_party
+        properties:
+          - name: id
+            mapping: id
+          - name: type
+            mapping: type
+          - name: status
+            mapping: status
+          - name: registeredDate
+            mapping: registered_date
+      - name: PmIdentifications
+        extends: Basics
+        mapping: tbl_pm_identifications
+        properties:
+          - name: id
+            mapping: id
+          - name: type
+            mapping: type
+          - name: value
+            mapping: value  
+          - name: partyId
+            mapping: party_id         
+          - name: source
+            mapping: source
+      - name: PmContactMediums
+        extends: Basics
+        mapping: tbl_pm_contract_mediums
+        properties:
+          - name: id
+            mapping: id
+          - name: partyId
+            mapping: party_id  
+          - name: type
+            mapping: type         
+          - name: value
+            mapping: value
+          - name: isMain
+            mapping: is_main  
+          - name: isFavorite
+            mapping: is_favorite
+          - name: source
+            mapping: source
+      - name: PmIndividuals
+        extends: Basics
+        mapping: tbl_pm_individuals
+        properties:
+          - name: partyId
+            mapping: party_id
+          - name: gender
+            enum: Gender
+            mapping: gender
+          # - name: maritalStatus
+          #   mapping: MARITAL_STATUS  
+          - name: birthDate
+            mapping: birth_date
+          - name: deathDate
+            mapping: death_date
+          - name: nationalityCode
+            mapping: nationality
+          - name: givenNames
+            mapping: given_names
+          - name: middleNames
+            mapping: middle_names
+          - name: familyNames
+            mapping: family_names
+          - name: legalName
+            mapping: legal_name     
+      - name: PmOrganizations
+        extends: Basics
+        mapping: tbl_pm_organizations
+        properties:
+          - name: partyId
+            mapping: party_id
+          - name: legalPeriodFrom
+            mapping: legal_period_from
+          - name: tradingName
+            mapping: trading_name
+          - name: industryTypeCode
+            mapping: industry_type
+          - name: commercialDescription
+            mapping: commercial_description
+  - name: oracle
+    extends: default
+    entities:
+      - name: PmIndustryTypes
+        sequence: sq_pm_industry_types
+      - name: PmParties
+        sequence: sq_pm_parties
+      - name: PmIdentifications
+        sequence: sq_pm_identifications
+      - name: PmContactMediums
+        sequence: sq_pm_contact_mediums
+      - name: PmIndividuals
+        sequence: sq_pm_individuals  
+      - name: PmOrganizations
+        sequence: sq_pm_organizations

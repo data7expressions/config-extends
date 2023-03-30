@@ -1,0 +1,14 @@
+model:
+  _extends: collections.model
+data:
+  _extends: collections.data
+app:
+  host: $HOST
+  port: $PORT
+  listeners:
+    - name: syncInsights
+      actions: [insert, bulkInsert, update, delete]
+      condition: options.stage.in("default","cqrs")
+      after: sendMessage("insights-sync",[{expression:expression,data:data}])
+  kafka:
+    config: $KAFKA_CONFIG

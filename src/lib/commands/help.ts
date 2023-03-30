@@ -11,7 +11,9 @@ const menus:any = {
       config-extends apply <options>
   
       --source, -s ..... input path of folder or file
-      --target, -t ..... output file (optional)`,
+      --target, -t ..... output file (optional)
+      --from,   -f ..... from property (optional)`,
+
 	extends: `
       config-extends extends <options>
   

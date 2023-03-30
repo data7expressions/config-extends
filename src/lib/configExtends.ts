@@ -8,23 +8,26 @@ import { FileInfo } from './model/fileInfo'
 const Yaml = require('js-yaml')
 
 export class ConfigExtends {
+	private _excludes = ['_extends', '_completed']
+
 	public async apply (source:string, target?:string, options:ExtendsOptions = {}):Promise<any> {
 		let config:any = {}
 		let _source:string
-		let _result:string|undefined
+		let from:string|undefined
+
 		const filesInfo:FileInfo[] = []
 		if (await h3lp.fs.isDirectory(source)) {
 			_source = source
-			_result = undefined
+			from = options.from
 		} else {
 			_source = path.dirname(source)
-			_result = path.parse(source).name
+			from = path.parse(source).name
 		}
 		await this.loadSourceConfig(config, filesInfo, _source, options)
 		config = this.extends(config)
 		config = this.getTargetConfig(config, filesInfo, options)
-		if (_result !== undefined) {
-			config = config[_result]
+		if (from !== undefined) {
+			config = h3lp.obj.getValue(config, from)
 		}
 		if (target) {
 			await this.saveTarget(config, filesInfo, target, options)
@@ -267,7 +270,7 @@ export class ConfigExtends {
 
 	private extendObject2 (config:any, obj:any, baseFullName:string, params:string[]) {
 		// TODO: mejorar para que no llegue aca este error
-		if (baseFullName === '_extends' || baseFullName === '_completed') return obj
+		if (this._excludes.includes(baseFullName)) return obj
 		let base = this.getData(config, baseFullName.split('.'))
 		if (base === undefined) {
 			throw new Error(`${baseFullName} not found`)
@@ -275,33 +278,7 @@ export class ConfigExtends {
 		if (base && !base._completed) {
 			base = this.complete(config, base, params)
 		}
-		return this.extendObject(obj, base)
-	}
-
-	private extendObject (obj:any, base:any):any {
-		if (Array.isArray(base)) {
-			if (!Array.isArray(obj)) return base
-			for (let i = 0; i < base.length; i++) {
-				const baseItem = base[i]
-				if (baseItem.name) {
-					const objItem = obj.find(p => p.name === baseItem.name)
-					if (!objItem) {
-						obj.push(baseItem)
-					} else {
-						this.extendObject(objItem, baseItem)
-					}
-				}
-			}
-		}
-		for (const k in base) {
-			if (k === '_extends' || k === '_completed') continue
-			if (obj[k] === undefined) {
-				obj[k] = base[k]
-			} else if (typeof obj[k] === 'object') {
-				this.extendObject(obj[k], base[k])
-			}
-		}
-		return obj
+		return h3lp.obj.extends(obj, base, this._excludes)
 	}
 
 	private setData (config:any, names:string[], data:any) {

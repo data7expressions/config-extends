@@ -1,0 +1,5 @@
+model:
+  _extends: collections.model
+app:
+  ormUrl: $COLLECTIONS_ORM_SVC
+  ormStage: $IMPORT_STAGE

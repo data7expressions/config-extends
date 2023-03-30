@@ -1,0 +1,10 @@
+entities:
+  # Abstracts
+  - name: Basics
+    abstract: true
+    properties:
+      - name: created
+        type: dateTime
+        default: now()
+      - name: createdBy
+        length: 50

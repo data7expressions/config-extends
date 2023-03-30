@@ -1,0 +1,8 @@
+model:
+  _extends: collections.model
+data:
+  _extends: collections.data
+app:
+  paths:
+    data: data
+  
