@@ -1,4 +1,0 @@
-_extends: base.model
-app:
-  ormUrl: $COLLECTIONS_ORM_SVC
-  ormStage: $IMPORT_STAGE
