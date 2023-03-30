@@ -2,15 +2,10 @@ enums:
   - name: AreaType
     values:
       - name: Country
-        value: Country
       - name: Region
-        value: Region
       - name: State
-        value: State
       - name: Department
-        value: Department
       - name: City
-        value: City
   - name: StreetType
   # https://www.gimme-shelter.com/steet-types-designations-abbreviations-50006/
     values:

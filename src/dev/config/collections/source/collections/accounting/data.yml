@@ -1,0 +1,102 @@
+mappings:
+  - name: default
+    entities:
+      - name: AccFinancialEntities
+        extends: Basics
+        mapping: tbl_acc_financial_entities
+      - name: AccPaymentMethods
+        extends: Basics
+        mapping: tbl_acc_payment_methods
+      - name: AccAccountTypes
+        extends: Basics
+        mapping: tbl_acc_account_types
+        properties:
+          - name: balanceType
+            mapping: balance_type
+          - name: increasedBy
+            mapping: increased_by
+      - name: AccCreditors
+        extends: Basics
+        mapping: tbl_acc_creditors
+        properties:
+          - name: partyId
+            mapping: party
+          - name: mainAddressId
+            mapping: main_address     
+          - name: mainContactId
+            mapping: main_contact        
+      - name: AccAccountHolders
+        extends: Basics
+        mapping: tbl_acc_account_holders
+      - name: AccAccounts
+        extends: Basics
+        mapping: tbl_acc_accounts
+        properties:
+          - name: holderId
+            mapping: holder_id
+          - name: responsibleNumber
+            mapping: responsible_number
+          - name: currencyId
+            mapping: currency
+          - name: accountTypeId
+            mapping: account_type  
+          - name: lastStatusId
+            mapping: last_status
+          - name: registrationDate
+            mapping: registration_date
+          - name: creditorId
+            mapping: creditor
+      - name: AccAccountStatusHistories
+        extends: Basics
+        mapping: tbl_acc_account_status_histories 
+      - name: AccPaymentResponsibles
+        extends: Basics
+        mapping: tbl_acc_payment_responsibles
+        properties:
+          - name: debtorNumber
+            mapping: debtor
+          - name: isMain
+            mapping: main
+          - name: mainPaymentMethodId
+            mapping: main_payment_method
+      - name: AccPaymentResponsibleMethods
+        extends: Basics
+        mapping: tbl_acc_payment_responsible_methods
+        properties:
+          - name: responsibleNumber
+            mapping: responsible
+          - name: paymentMethodId
+            mapping: payment_method  
+          - name: financialEntityId
+            mapping: financial_entity
+          - name: financialEntityAccountNro
+            mapping: account_number
+          - name: cardNumber
+            mapping: card_number
+          - name: cardName
+            mapping: card_name
+          - name: expirationYear
+            mapping: expiration_year
+          - name: expirationMonth
+            mapping: expiration_month
+  - name: oracle
+    extends: default
+    entities:
+      - name: AccFinancialEntities
+        sequence: sq_acc_financial_entities
+      - name: AccPaymentMethods
+        sequence: sq_acc_payment_methods
+      - name: AccAccountTypes
+        sequence: sq_acc_account_types
+      - name: AccCreditors
+        sequence: sq_acc_creditors      
+      - name: AccAccountHolders
+        sequence: sq_acc_account_holders
+      - name: AccAccounts
+        sequence: sq_acc_accounts
+      - name: AccAccountStatusHistories
+        sequence: sq_acc_account_status_histories 
+      - name: AccPaymentResponsibles
+        sequence: sq_acc_payment_responsibles
+      - name: AccPaymentResponsibleMethods
+        sequence: sq_acc_payment_responsible_methods

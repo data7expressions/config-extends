@@ -4,32 +4,18 @@ mappings:
       - name: LocCountries
         mapping: tbl_loc_countries
         properties:
-          - name: iso3
-            mapping: iso3
-          - name: name
-            mapping: name
-          - name: iso
-            mapping: iso
           - name: numericCode
             mapping: numeric_code
       - name: LocAreas
         mapping: tbl_loc_areas
         properties:
-          - name: code
-            mapping: code
           - name: parentCode
             mapping: parent
           - name: countryCode
             mapping: country  
-          - name: type
-            mapping: type           
-          - name: name
-            mapping: name
       - name: LocAddresses
         mapping: tbl_loc_addresses
         properties:
-          - name: id
-            mapping: id
           - name: countryCode
             mapping: country
           - name: areaCode
@@ -37,14 +23,11 @@ mappings:
           - name: streetName
             mapping: street
           - name: streetType
-            enum: StreetType
             mapping: street_type
           - name: streetNrFirst
             mapping: nro
           - name: zipCode
             mapping: zip_code
-          - name: city
-            mapping: city
           - name: additionalData
             mapping: additional_data       
   - name: oracle

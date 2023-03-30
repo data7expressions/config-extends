@@ -1,0 +1,50 @@
+mappings:
+  - name: default
+    entities:
+      - name: Basics
+        abstract: true
+        properties:
+          - name: createdBy
+            mapping: created_by
+      - name: ComCurrencies
+        mapping: tbl_com_currencies
+      - name: IamGroups
+        extends: Basics
+        mapping: tbl_iam_groups
+      - name: IamUsers
+        mapping: tbl_iam_users
+        extends: Basics
+        properties:
+          - name: firstname
+            mapping: first_name
+          - name: lastname
+            mapping: last_name
+      - name: IamGroupUsers
+        mapping: tbl_iam_group_users
+        properties:
+          - name: groupId
+            mapping: group_id
+  - name: keycloak
+    extends: default
+    entities:
+      - name: IamUsers
+        mapping: user_entity
+        filter: realmId == "${REALM_ID}"
+        properties:
+          - name: created
+            mapping: created_timestamp
+            readMappingExp: millisecondToDate(created/1000)
+          - name: realmId
+            length: 255
+            mapping: realm_id
+  - name: oracle
+    extends: default
+    entities:
+      - name: ComCurrencies
+        sequence: sq_com_currencies
+      - name: IamGroups
+        mapping: sq_iam_groups
+      - name: IamUsers
+        sequence: sq_iam_users
+      - name: IamGroupUsers
+        sequence: sq_iam_group_users

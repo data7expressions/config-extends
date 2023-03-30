@@ -31,7 +31,7 @@
 	},
 	"homepage": "https://github.com/FlavioLionelRita/config-extends#readme",
 	"dependencies": {
-		"h3lp": "1.2.7",
+		"h3lp": "1.2.8",
 		"js-yaml": "^4.1.0",
 		"minimist": "^1.2.6"
 	},

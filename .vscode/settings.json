@@ -6,8 +6,15 @@
     "editor.tabSize": 2,
     "editor.insertSpaces": false,
     "cSpell.words": [
+      "concat",
       "cqrs",
       "ethernet",
-      "Flavio"
+      "firstname",
+      "Flavio",
+      "fullmane",
+      "keycloak",
+      "lastname",
+      "responsibles",
+      "Responsibles"
     ]
 }

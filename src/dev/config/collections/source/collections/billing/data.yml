@@ -1,0 +1,17 @@
+mappings:
+  - name: default
+    entities:
+      - name: BillCycles
+        mapping: tbl_bill_cycles
+        properties:
+          - name: cycleDay
+            mapping: cycle_day
+      - name: AccAccounts
+        properties:
+          - name: cycleId
+            mapping: cycle_id
+  - name: oracle
+    extends: default
+    entities:
+      - name: BillCycles
+        sequence: sq_bill_cycles

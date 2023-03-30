@@ -1,5 +1,9 @@
-_extends: [business.common.data,business.location.data, business.party.data]
+_extends: [common.data, location.data, party.data, accounting.data, billing.data, debtor.data]
 sources:
+  - name: commons
+    mapping: default
+    dialect: MySQL
+    connection: ${CNX_COMMONS}
   - name: locations
     mapping: default
     dialect: MySQL
@@ -8,14 +12,18 @@ sources:
     mapping: default
     dialect: MySQL
     connection: ${CNX_PARTIES}
-  - name: ledgerAccounts
+  - name: accounting
     mapping: default
     dialect: MySQL
-    connection: ${CNX_LEDGER_ACCOUNTS}
+    connection: ${CNX_ACCOUNTING}
   - name: debtors
     mapping: default
     dialect: MySQL
     connection: ${CNX_DEBTORS}
+  - name: keycloak
+    mapping: keycloak
+    dialect: Postgres
+    connection: ${CNX_KEYCLOAK} 
   - name: insights
     mapping: default
     dialect: PostgreSQL
@@ -23,26 +31,34 @@ sources:
 stages:
   - name: default
     sources:
+      - name: keycloak
+        condition: entity == "Users"
+      - name: commons
+        condition: entity.startWith("Com") || entity.startWith("Iam")       
       - name: locations
         condition: entity.startWith("Loc")
       - name: parties
         condition: entity.startWith("Pm")
-      - name: ledgerAccounts
-        condition: entity.startWith("Lam")
+      - name: accounting
+        condition: entity.startWith("Acc") || entity.startWith("Bill")
       - name: debtors
         condition: entity.startWith("Db")  
   - name: insights
-    sources:
+    sources:      
       - name: insights
   - name: cqrs
     sources:
+      - name: keycloak
+        condition: entity == "Users"
       - name: insights
         condition: action == "select"
+      - name: commons
+        condition: entity.startWith("Com") || entity.startWith("Iam")   
       - name: locations
         condition: entity.startWith("Loc")
       - name: parties
         condition: entity.startWith("Pm")
-      - name: ledgerAccounts
-        condition: entity.startWith("Lam")
+      - name: accounting
+        condition: entity.startWith("Acc") || entity.startWith("Bill")
       - name: debtors
         condition: entity.startWith("Db")      
