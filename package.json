@@ -1,6 +1,6 @@
 {
 	"name": "config-extends",
-	"version": "2.0.5",
+	"version": "2.0.6",
 	"description": "Allow to extend yaml or json files configuration",
 	"scripts": {
 		"lint": "npx eslint src",
@@ -31,9 +31,9 @@
 	},
 	"homepage": "https://github.com/FlavioLionelRita/config-extends#readme",
 	"dependencies": {
-		"h3lp": "1.2.8",
+		"h3lp": "1.3.8",
 		"js-yaml": "^4.1.0",
-		"minimist": "^1.2.6"
+		"minimist": "^1.2.8"
 	},
 	"devDependencies": {
 		"@types/glob": "^8.0.1",
