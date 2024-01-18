@@ -1,6 +1,6 @@
 {
 	"name": "config-extends",
-	"version": "2.0.7",
+	"version": "2.0.8",
 	"description": "Allow to extend yaml or json files configuration",
 	"scripts": {
 		"lint": "npx eslint src",
