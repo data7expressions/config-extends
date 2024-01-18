@@ -8,7 +8,7 @@ app:
   listeners:
     - name: syncInsights
       actions: [insert, bulkInsert, update, delete]
-      condition: options.stage.in("default","cqrs")
+      condition: options.stage.in("default","cqrs") && entity !== "IamUsers"
       after: sendMessage("insights-sync",[{expression:expression,data:data}])
   kafka:
     config: $KAFKA_CONFIG

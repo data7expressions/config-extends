@@ -1,0 +1,87 @@
+enums:
+  - name: Role
+    values:
+      - name: Admin
+      - name: Auditor
+      - name: Operator
+      - name: Guest
+entities:
+  # Abstracts
+  - name: Basics
+    abstract: true
+    properties:
+      - name: created
+        type: dateTime
+        default: now()
+      - name: createdBy
+        length: 50
+  # Common settings
+  - name: ComCurrencies
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        length: 16
+        required: true
+      - name: name
+        length: 60
+        required: true
+      - name: symbol
+        length: 3
+        required: true
+  # IAM settings
+  - name: IamGroups
+    extends: Basics
+    primaryKey: ["id"]
+    uniqueKey: ["name"]
+    properties:
+      - name: id
+        length: 32
+        default: lower(substring(replace(name," ","-"),0,32))
+        nullable: false
+      - name: name
+        length: 32
+        nullable: false
+  # IAM business
+  - name: IamUsers
+    view: true
+    extends: Basics
+    primaryKey: ["username"]
+    uniqueKey: ["email"]
+    properties:
+      - name: username
+        length: 32
+        nullable: false
+      - name: firstname
+        nullable: false
+      - name: lastname
+        nullable: false
+      - name: fullmane
+        view: true
+        readExp: concat(lastname,", ",firstname)
+      - name: email
+        nullable: false
+        length: 255
+        readExp: mask(email)
+        # writeValue: encrypt(lower(email),"$$USERS_SECRET_KEY")
+        # readValue: decrypt(email,"$$USERS_SECRET_KEY")
+    constraints:
+      - message: invalid email
+        condition: test(email,"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$")
+  - name: IamGroupUsers
+    primaryKey: ["id"]
+    uniqueKey: ["groupId", "username"]
+    properties:
+      - name: id
+        default: "`${groupId}-${username}`"
+        length: 64
+        nullable: false
+      - name: username
+        length: 32
+        nullable: false
+      - name: groupId
+        length: 32
+        nullable: false
+      - name: role
+        length: 32
+        nullable: false
+        enum: Role

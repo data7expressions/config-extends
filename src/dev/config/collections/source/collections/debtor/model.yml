@@ -1,0 +1,152 @@
+_extends: [common.model, party.model,accounting.model]
+enums:
+  - name: DebtorType
+    values: 
+      - name: Natural
+      - name: Legal # ex Jurídica
+  - name: DebtorStatus
+    values:
+      - name: Active
+      - name: Suspended
+      - name: Cancelled
+      - name: Closed
+  - name: DebtorStatusReason
+    values:
+entities:
+  # Settings
+  - name: DbStages
+    # old DbDebtorStages
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        length: 16
+        required: true
+      - name: name
+        required: true
+      - name: description
+        length: 500
+      - name: color
+        length: 6
+      - name: position
+      #  old stagePosition
+        type: integer
+      - name: disabled
+        type: boolean
+        required: true
+  # Business
+  - name: AccAccounts
+    # de esta forma se esta extendiendo la entidad AccAccounts 
+    properties:
+      - name: debtorNumber
+        length: 16
+        required: true       
+    relations:    
+      - name: debtor
+        from: debtorNumber
+        entity: DbDebtors
+        to: number
+        target: accounts
+  - name: DbDebtors
+    extends: Basics
+    primaryKey: ["number"]
+    properties:
+      - name: number
+        # old debtorNumber
+        length: 16
+        required: true
+      - name: referenceNumber
+        length: 32
+        required: true  
+      - name: name
+        length: 200
+        required: true
+      - name: partyRoleId
+        type: integer
+      - name: partyId
+        type: integer      
+      - name: mainAccountNumber
+        length: 16
+      - name: mainPaymentResponsibleNumber
+        length: 16  
+      - name: stageId
+        type: integer
+      - name: debtorType
+        length: 16
+        enum: DebtorType
+      - name: status
+        length: 16
+        required: true
+        enum: DebtorStatus
+      - name: reason
+        length: 50
+        required: true
+        enum: DebtorStatusReason    
+      - name: lastStatusId
+      # - old debtorStatusId
+        type: integer
+        required: true       
+      - name: identificationValue
+        length: 80
+      - name: identificationType
+        length: 30
+      - name: additionalInfo1
+        length: 150
+      - name: additionalInfo2
+        length: 150
+      - name: additionalInfo3
+        length: 150
+    relations:
+      - name: partyRole       
+        from: partyRoleId
+        entity: PrPartyRoles
+        to: id        
+        target: debtor
+        type: oneToOne
+      - name: party       
+        from: partyId
+        entity: PrParties
+        to: id        
+        target: debtors
+      - name: stage
+        from: stageId
+        entity: DbDebtorStages
+        to: id        
+      - name: lastStatus
+        from: lastStatusId
+        entity: DbDebtorStatusHistories
+        to: id
+      - name: mainAccount
+        from: mainAccountNumber
+        entity: AccAccounts
+        to: number
+      - name: mainPaymentResponsible
+        from: mainPaymentResponsibleNumber
+        entity: AccPaymentResponsibles
+        to: number
+  - name: DbDebtorStatusHistories
+    extends: Basics
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        required: true
+        autoIncrement: true
+      - name: number
+        length: 16
+        required: true  
+      - name: status
+        length: 16
+        required: true
+        enum: DebtorStatus        
+      - name: reason
+        length: 50
+        required: true
+        enum: DebtorStatusReason 
+      - name: remarks
+        length: 250      
+    relations:
+      - name: account
+        from: number
+        entity: DbDebtors
+        to: number
+        target: statusHistories

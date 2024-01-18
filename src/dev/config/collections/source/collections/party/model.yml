@@ -2,43 +2,36 @@ enums:
   - name: PartyType
     values:
       - name: Individual
-        value: IND
       - name: Organization
-        value: ORG
+  - name: PartyRoleType
+    values:
+      - name: Employee
+      - name: Customer
+      - name: Creditor
   - name: PartyStatus
     values:
       - name: Created
-        value: CREATED
       - name: Active
-        value: ACTIVE  
       - name: InProgress
-        value: IN_PROGRESS  
       - name: Inactive
-        value: INACTIVE
+  - name: PartyRoleStatus
+    values:
+      - name: Initial
+      - name: Active
+      - name: Inactive 
   - name: IdentificationType
     values:
       - name: NotAvailable
-        value: "NO DISPONIBLE"
-      - name: DNI
-        value: DNI  
+      - name: DNI 
       - name: RUC
-        value: RUC  
       - name: Passport
-        value: PASAPORTE
       - name: CIP
-        value: CIP
       - name: CE
-        value: CE
       - name: CDI
-        value: CDI
       - name: CTM
-        value: CTM
       - name: CPP
-        value: CPP
       - name: CIE
-        value: CIE
-      - name: CIRE
-        value: CIRE                          
+      - name: CIRE                         
   - name: Gender
     values:
       - name: Male
@@ -50,49 +43,23 @@ enums:
   - name: MaritalStatus
     values:
       - name: Married
-        value: CASADO
       - name: Divorced
-        value: DIVORCIADO  
       - name: Single
-        value: SOLTERO  
       - name: Widower
-        value: VIUDO
       - name: Concubinage
-        value: CONCUBINATO
       - name: Separation
-        value: SEPARACION
       - name: Undefined
-        value: UNDEFINED
   - name: ContactMediumType
     values:
+      - name: Landline
       - name: Phone
-        value: Phone
-      - name: CellPhone
-        value: CellPhone  
-      - name: SecondaryPhone
-        value: SecondaryPhone  
-      - name: WorkPhone
-        value: WorkPhone
       - name: Email
-        value: Email
-      - name: WorkEmail
-        value: WorkEmail
       - name: Twitter
-        value: Twitter 
       - name: Instagram
-        value: Instagram
       - name: Facebook
-        value: Facebook
-      - name: Skype
-        value: Skype
-      - name: MainMobile
-        value: MainMobile
-      - name: MainPhone
-        value: MainPhone
-      - name: SecPhone
-        value: SecPhone                                     
+      - name: Skype                                      
 entities:
-  # Party settings
+    # Party settings
   - name: PmIndustryTypes
     primaryKey: ["code"]
     properties:
@@ -120,10 +87,53 @@ entities:
       - name: registeredDate
         type: dateTime
         default: now()
+  - name: PmPartyRoles
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        required: true
+        autoIncrement: true
+      - name: partyId
+        type: integer
+        required: true
+      - name: type
+        # old partyRoleSpecId
+        length: 16         
+        required: true
+        enum: PartyRoleType    
+      - name: status
+        length: 16
+        required: true
+        enum: PartyRoleStatus
+      - name: description
+        #  old name
+        length: 100        
+      - name: from
+        # old validFrom
+        type: dateTime
+      - name: to
+        # old validTo
+        type: dateTime        
+    relations:
+      - name: party          
+        from: partyId
+        entity: PmParties
+        to: id
+        type: oneToOne
+      - name: individual          
+        from: partyId
+        entity: PmIndividuals
+        to: id
+        type: oneToOne
+      - name: organization          
+        from: partyId
+        entity: PmOrganizations
+        to: id
+        type: oneToOne
   - name: PmIdentifications
     extends: Basics
     primaryKey: [id]
-    # uniqueKey: [partyId,type]
     properties:
       - name: id
         type: integer
@@ -164,15 +174,12 @@ entities:
         required: true    
       - name: value
         length: 100
-        # required: true
       - name: isMain
         type: boolean        
       - name: isFavorite
         type: boolean
       - name: source
         length: 30
-      - name: createdBy
-        length: 50
     relations:
       - name: party
         from: partyId
@@ -265,13 +272,3 @@ entities:
         from: industryTypeCode
         entity: PmIndustryTypes
         to: code
-      # - name: identifications
-      #   type: manyToOne
-      #   from: partyId
-      #   entity: PmIdentifications
-      #   to: partyId
-      # - name: contactMediums
-      #   type: manyToOne
-      #   from: partyId
-      #   entity: PmContactMediums
-      #   to: partyId   

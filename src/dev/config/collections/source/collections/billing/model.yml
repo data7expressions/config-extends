@@ -1,0 +1,31 @@
+_extends: [accounting.model]
+entities:
+  # Settings
+  - name: BillStatementCycles
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        length: 32
+        required: true
+      - name: name
+        length: 100
+        required: true
+      - name: cycleDay
+        type: integer
+        required: true
+      - name: description
+        length: 150
+      - name: disabled
+        type: boolean
+  # Business
+  - name: AccAccounts
+    properties:
+      - name: cycleId
+      # - name: statementCycleId
+        length: 32
+        required: true
+    relations:
+      - name: cycle
+        from: cycleId
+        entity: BillStatementCycles
+        to: id

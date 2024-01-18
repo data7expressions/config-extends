@@ -293,7 +293,9 @@ export class ConfigExtends {
 		let _config = config
 		for (let i = 0; i < names.length; i++) {
 			if (!_config) break
-			_config = _config[names[i]]
+			_config = Array.isArray(_config)
+				? _config.find(p => p.name === names[i])
+				: _config[names[i]]
 		}
 		return _config
 	}

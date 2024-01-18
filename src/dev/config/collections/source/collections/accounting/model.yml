@@ -1,0 +1,300 @@
+_extends: [common.model, party.model]
+enums:
+  - name: AccountStatus
+    values:
+      - name: Active
+      - name: Suspended
+      - name: Cancelled
+      - name: Closed
+  - name: AccountStatusReason
+    values:
+  - name: FinancialEntityType
+    values:
+      - name: Bank
+      - name: Other
+  - name: FinancialEntityStatus
+    values:
+      - name: Pending
+      - name: Active
+      - name: Suspended
+      - name: Cancelled
+  - name: PaymentMethodType
+    values:
+    - name: Cash
+    - name: Check
+    - name: "Credit card"
+      value: CreditCard
+    - name: "Debit card"
+      value: DebitCard
+    - name: "Virtual card"
+      value: VirtualCard
+    - name: "Charge to Account"
+      value: ChargeToAccount
+    - name: Other
+    - name: Debit
+    - name: Transference   
+  - name: PaymentMethodStatus
+    values:
+      - name: Pending
+      - name: Active
+      - name: Suspended
+      - name: Cancelled    
+entities:
+  # Settings
+  - name: AccFinancialEntities
+    # old Banks
+    extends: Basics
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        length: 16
+        required: true
+      - name: name
+        required: true  
+      - name: type
+        length: 16
+        required: true
+        enum: FinancialEntityType
+      - name: status
+        length: 16
+        required: true
+        enum: FinancialEntityStatus
+  - name: AccPaymentMethods
+    extends: Basics
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        length: 16
+        required: true
+      - name: name
+        required: true  
+      - name: type
+        length: 16
+        required: true
+        enum: PaymentMethodType
+      - name: status
+        length: 16
+        required: true
+        enum: PaymentMethodStatus  
+  - name: AccAccountTypes
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        length: 32
+        required: true
+      - name: name
+        length: 100
+        required: true
+      - name: description
+        length: 150
+      - name: disabled
+        type: boolean
+        required: true
+      - name: balanceType
+        type: integer
+        required: true
+      - name: increasedBy
+        type: integer
+        required: true
+  # Business
+  - name: AccCreditors
+    extends: Basics
+    primaryKey: ["code"]
+    properties:
+      - name: code
+        length: 50
+        required: true
+      - name: name
+        length: 100
+        required: true
+      - name: partyId
+        type: integer
+        required: true
+      - name: mainAddressId
+        type: integer       
+      - name: mainContactId
+        type: integer
+    relations:
+      - name: party          
+        from: partyId
+        entity: PmParties
+        to: id
+        type: oneToOne
+        target: creditor
+      - name: mainAddress          
+        from: mainAddressId
+        entity: LocAddresses
+        type: oneToOne
+        to: id
+      - name: mainContact          
+        from: mainContactId
+        entity: PmContactMediums
+        type: oneToOne
+        to: id         
+  - name: AccAccountHolders
+    extends: Basics
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        required: true
+        autoIncrement: true
+      - name: name
+        length: 100
+        required: true
+  - name: AccAccounts
+    extends: Basics
+    primaryKey: ["number"]
+    properties:
+      - name: number
+        length: 16
+        required: true
+      - name: holderId
+        type: integer
+        required: true
+      - name: responsibleNumber
+        length: 16
+        required: true     
+      - name: name
+        length: 100
+        required: true
+      - name: currencyId
+        length: 16
+        required: true
+      - name: accountTypeId
+        length: 32
+        required: true
+      - name: status
+        length: 16
+        required: true
+        enum: AccountStatus
+      - name: reason
+        length: 50
+        required: true
+        enum: AccountStatusReason    
+      - name: lastStatusId
+      # - name: accountStatusId
+        type: integer
+        required: true        
+      - name: balance
+        type: decimal
+        required: true      
+      - name: registrationDate
+        type: dateTime
+        required: true
+      - name: creditorId
+        type: integer
+    relations:
+      - name: holder
+        from: holderId
+        entity: AccAccountHolders
+        to: id
+        target: accounts
+      - name: responsible
+        from: responsibleNumber
+        entity: AccPaymentResponsibles
+        to: number
+        target: accounts  
+      - name: accountType
+        from: accountTypeId
+        entity: AccAccountTypes
+        to: id
+      - name: currency
+        from: currencyId
+        entity: ComCurrencies
+        to: id          
+      - name: lastStatus
+        from: lastStatusId
+        entity: AccAccountStatusHistories
+        to: id
+        type: oneToOne 
+      - name: creditor
+        from: creditorId
+        entity: LamCreditors
+        to: id
+  - name: AccAccountStatusHistories
+    extends: Basics
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        required: true
+        autoIncrement: true
+      - name: number
+        length: 16
+        required: true  
+      - name: status
+        length: 16
+        required: true
+        enum: AccountStatus        
+      - name: reason
+        length: 50
+        required: true
+        enum: AccountStatusReason 
+      - name: remarks
+        length: 250      
+    relations:
+      - name: account
+        from: number
+        entity: AccAccounts
+        to: number
+        target: statusHistories
+  - name: AccPaymentResponsibles
+    primaryKey: ["number"]
+    properties:
+      - name: number
+        length: 16
+        required: true  
+      - name: debtorNumber
+        length: 16
+        required: true
+      - name: isMain
+        type: boolean
+      - name: mainPaymentMethodId
+        type: integer
+    relations:
+      - name: partyRole       
+        from: partyRoleId
+        entity: PrPartyRoles
+        to: id
+        target: paymentResponsible
+        type: oneToOne
+      - name: mainPaymentMethod       
+        from: mainPaymentMethodId
+        entity: AccPaymentResponsibleMethods
+        to: id  
+  - name: AccPaymentResponsibleMethods
+    primaryKey: [id]
+    properties:
+      - name: id
+        type: integer
+        required: true
+        autoIncrement: true
+      - name: responsibleNumber
+        length: 16
+        required: true
+      - name: paymentMethodId
+        length: 16
+        required: true
+      - name: status
+        length: 16
+        required: true
+        enum: PaymentMethodStatus      
+      - name: financialEntityId
+        length: 16
+      - name: financialEntityAccountNro
+        length: 20
+      - name: cardNumber
+        length: 20
+      - name: cardName
+        length: 100
+      - name: expirationYear
+        type: integer
+      - name: expirationMonth
+        type: integer
+    relations:
+      - name: responsible
+        from: responsibleNumber
+        entity: AccPaymentResponsibles
+        to: number
+        target: paymentMethods
