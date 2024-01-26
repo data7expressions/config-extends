@@ -27,7 +27,7 @@ Pull requests are the best way to propose changes to the codebase (we use [Githu
 
 In short, when you submit code changes, your submissions are understood to be under the same [MIT License](http://choosealicense.com/licenses/mit/) that covers the project. Feel free to contact the maintainers if that's a concern.
 
-## Report bugs using Github's [issues](https://github.com/expr-solver/config-extends/issues)
+## Report bugs using Github's [issues](https://github.com/data7expressions/config-extends/issues)
 
 We use GitHub issues to track public bugs. Report a bug by [opening a new issue]; it's that easy!
 
@@ -49,7 +49,7 @@ People *love* thorough bug reports. I'm not even kidding.
 
 ## Use a Consistent Coding Style
 
-I'm again borrowing these from [Guidelines](https://github.com/expr-solver/config-extends/blob/main/CONTRIBUTING.md)
+I'm again borrowing these from [Guidelines](https://github.com/data7expressions/config-extends/blob/main/CONTRIBUTING.md)
 
 - 2 spaces for indentation rather than tabs
 - You can try running `npm run lint` for style unification

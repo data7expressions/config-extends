@@ -13,7 +13,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/expr-solver/config-extends.git"
+		"url": "git+https://github.com/data7expressions/config-extends.git"
 	},
 	"keywords": [
 		"json",
@@ -27,9 +27,9 @@
 	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/expr-solver/config-extends/issues"
+		"url": "https://github.com/data7expressions/config-extends/issues"
 	},
-	"homepage": "https://github.com/expr-solver/config-extends#readme",
+	"homepage": "https://github.com/data7expressions/config-extends#readme",
 	"standard-version": {
 		"header": "# Changelog\n\nAll notable changes to this project will be documented in this file.\n\n## Versions\n"
 	},
