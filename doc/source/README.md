@@ -16,4 +16,4 @@ jemv
 
 #### Defined in
 
-[index.ts:2](https://github.com/FlavioLionelRita/config-extends/blob/f628a74/src/lib/index.ts#L2)
+[index.ts:2](https://github.com/data7expressions/config-extends/blob/4cf77a4/src/lib/index.ts#L2)
