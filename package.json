@@ -34,7 +34,7 @@
 		"header": "# Changelog\n\nAll notable changes to this project will be documented in this file.\n\n## Versions\n"
 	},
 	"dependencies": {
-		"h3lp": "1.5.2",
+		"h3lp": "1.5.8",
 		"js-yaml": "^4.1.0",
 		"minimist": "^1.2.8"
 	},
