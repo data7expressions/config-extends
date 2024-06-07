@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [2.0.13](https://github.com/data7expressions/config-extends/compare/v2.0.12...v2.0.13) (2024-06-07)
+
 ### [2.0.12](https://github.com/data7expressions/config-extends/compare/v2.0.11...v2.0.12) (2024-06-07)
 
 ### [2.0.11](https://github.com/data7expressions/config-extends/compare/v2.0.10...v2.0.11) (2024-03-20)
