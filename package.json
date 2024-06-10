@@ -39,7 +39,7 @@
 		"minimist": "^1.2.8"
 	},
 	"devDependencies": {
-		"dir-compare": "^4.0.0",
+		"dir-compare": "^5.0.0",
 		"@types/jest": "^29.5.11",
 		"@types/node": "^20.10.6",
 		"@types/yargs": "^17.0.24",
